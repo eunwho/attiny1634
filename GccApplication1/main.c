@@ -312,13 +312,14 @@ void rs485SendInput(){
 	int i, input;
 	RS485_RX_EN;
 
-	input = PINC2; 	
+	input = ( PINC & ( 1 << PINC2 )) ? 2 : 0; 	
+	
 	gUartTxBuffer[0] = 0x02;
 	gUartTxBuffer[1] = 'D';
 	gUartTxBuffer[2] = input + 0x30;
-	gUartTxBuffer[3] = input + 0x30;
-	gUartTxBuffer[4] = input + 0x30;
-	gUartTxBuffer[5] = input + 0x30;
+	gUartTxBuffer[3] = 0x30;
+	gUartTxBuffer[4] = 0x30;
+	gUartTxBuffer[5] = 0x30;
 	gUartTxBuffer[6] = 0x03;
 
 	_delay_ms(5);
